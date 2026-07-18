@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import EventDetails from './pages/EventDetails';
 import StudentDashboard from './pages/StudentDashboard';
+import OrganiserDashboard from './pages/OrganiserDashboard';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -21,7 +22,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<StudentDashboard />} />
-          {/* Dashboard and other routes will go here */}
+          <Route path="/organiser-dashboard" element={<OrganiserDashboard />} />
         </Routes>
       </main>
 
