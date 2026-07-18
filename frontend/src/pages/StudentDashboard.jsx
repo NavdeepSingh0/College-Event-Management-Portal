@@ -3,6 +3,7 @@ import { Calendar, Bell, XCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
+import API from '../utils/api';
 
 export default function StudentDashboard() {
   const { user } = useAuth();
@@ -10,14 +11,32 @@ export default function StudentDashboard() {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
-    // Mock fetch
-    setRegisteredEvents([
-      { id: 1, title: 'Annual Tech Symposium', category: 'Technical', price: 0, date: '2026-08-15', time: '10:00', venue: 'Main Auditorium', capacity: 500, registered_count: 230, poster_url: '/images/tech-symposium.jpg' }
-    ]);
-    setAnnouncements([
-      { id: 1, title: 'Venue Changed for Tech Symposium', message: 'The event has been moved to the Main Auditorium.', date: '2026-08-10' }
-    ]);
-  }, []);
+    if (user) {
+      API.get('/dashboard/stats').then(res => {
+        setRegisteredEvents(res.upcoming || []);
+      }).catch(err => console.error(err));
+
+      API.get('/notifications').then(res => {
+        // Map notifications to the format expected by the UI
+        const mapped = (res.notifications || []).map(n => ({
+          id: n.id,
+          title: n.type === 'success' ? 'Success' : 'Notification',
+          message: n.message,
+          date: new Date(n.created_at).toLocaleDateString()
+        }));
+        setAnnouncements(mapped);
+      }).catch(err => console.error(err));
+    }
+  }, [user]);
+
+  const cancelRegistration = async (eventId) => {
+    try {
+      await API.del(`/register/${eventId}`);
+      setRegisteredEvents(prev => prev.filter(e => e.id !== eventId));
+    } catch (err) {
+      console.error('Failed to cancel registration:', err);
+    }
+  };
 
   if (!user) return <div className="container" style={{ padding: '6rem 0', textAlign: 'center' }}>Please login to view your dashboard.</div>;
 
@@ -48,10 +67,14 @@ export default function StudentDashboard() {
                 <div className="events-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
                   {registeredEvents.map(event => (
                     <div key={event.id} style={{ position: 'relative' }}>
-                      <EventCard event={event} />
-                      <button className="btn-icon" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10, background: 'var(--red)', color: 'white', border: 'none' }} title="Cancel Registration">
-                        <XCircle className="w-5 h-5" />
-                      </button>
+                      <EventCard 
+                        event={event} 
+                        customAction={
+                          <button onClick={() => cancelRegistration(event.id)} className="btn btn-sm" style={{ background: 'transparent', color: '#DC2626', border: '1px solid #DC2626' }}>
+                            Cancel Registration
+                          </button>
+                        }
+                      />
                     </div>
                   ))}
                 </div>

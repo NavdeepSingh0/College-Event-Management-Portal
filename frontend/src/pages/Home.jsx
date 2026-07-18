@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Search, Star, Calendar, Target, Users, Rocket, MessageSquare, Mail, GraduationCap, Laptop, Palette, Trophy, Briefcase, Handshake, Mic, Theater, Bot, Clapperboard, Camera, Music, Edit, Medal, Dumbbell } from 'lucide-react';
 import EventCard from '../components/EventCard';
-import { cuEvents, cuClubs, testimonials } from '../data/events';
+import { cuClubs, testimonials } from '../data/events';
+import API from '../utils/api';
 
 const iconMap = {
   'laptop': <Laptop className="w-8 h-8" />,
@@ -22,17 +23,35 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [bookState, setBookState] = useState(0);
 
-  // Live Ticker Logic: Next event
-  const sortedByDate = [...cuEvents].sort((a, b) => new Date(a.date) - new Date(b.date));
-  const nextEvent = sortedByDate.find(e => new Date(e.date) >= new Date()) || sortedByDate[0];
+  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const featuredRes = await API.get('/events/featured');
+        setFeaturedEvents(featuredRes.events || []);
+
+        const upcomingRes = await API.get('/events?sort=date&limit=6');
+        setUpcomingEvents(upcomingRes.events || []);
+      } catch (err) {
+        console.error('Error fetching events:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+  }, []);
+
+  const nextEvent = upcomingEvents.find(e => new Date(e.date) >= new Date()) || upcomingEvents[0];
   let nextEventText = "Loading...";
   if (nextEvent) {
-    const d = new Date(nextEvent.date + 'T' + (nextEvent.startTime || '09:00'));
+    const d = new Date(nextEvent.date + 'T' + (nextEvent.startTime || nextEvent.start_time || '09:00'));
     nextEventText = `Next: ${nextEvent.title} - ${d.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })} at ${d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}`;
+  } else if (!loading) {
+    nextEventText = "No upcoming events scheduled";
   }
-
-  const featuredEvents = cuEvents.filter(e => e.featured).slice(0, 6);
-  const upcomingEvents = sortedByDate.slice(0, 6);
 
   const categories = [
     { name: 'Academic & Seminars', icon: <GraduationCap className="w-8 h-8" />, desc: 'Guest lectures, workshops, research', cat: 'Academic' },
@@ -175,13 +194,12 @@ export default function Home() {
           </div>
           <div className="categories-grid">
             {categories.map(cat => {
-              const count = cuEvents.filter(e => e.category === cat.cat).length;
               return (
                 <Link to={`/events?cat=${cat.cat}`} key={cat.cat} className="category-card fade-in">
                   <span className="cat-icon text-accent">{cat.icon}</span>
                   <h3>{cat.name}</h3>
                   <p>{cat.desc}</p>
-                  <p style={{ marginTop: '0.4rem', fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 600 }}>{count} events</p>
+                  <p style={{ marginTop: '0.4rem', fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 600 }}>Explore events →</p>
                 </Link>
               );
             })}

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar as CalendarIcon, MapPin, Clock, ClipboardList, ChevronLeft, ChevronRight } from 'lucide-react';
-import { cuEvents } from '../data/events';
+import API from '../utils/api';
 
 // Map categories to original CSS variables/colors
 const categoryColors = {
@@ -23,6 +23,14 @@ export default function CalendarView() {
     const today = new Date();
     return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
   });
+  
+  const [events, setEvents] = useState([]);
+
+  React.useEffect(() => {
+    API.get('/events?limit=500')
+      .then(res => setEvents(res.events || []))
+      .catch(err => console.error(err));
+  }, []);
 
   const calYear = currentDate.getFullYear();
   const calMonth = currentDate.getMonth();
@@ -41,15 +49,16 @@ export default function CalendarView() {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const monthEvents = useMemo(() => {
-    return cuEvents.filter(e => {
+    return events.filter(e => {
+      if (!e.date) return false;
       const [y, m] = e.date.split('-');
       return parseInt(y) === calYear && parseInt(m) === calMonth + 1;
     });
-  }, [calYear, calMonth]);
+  }, [calYear, calMonth, events]);
 
   const selectedEvents = useMemo(() => {
-    return cuEvents.filter(e => e.date === selectedDateStr);
-  }, [selectedDateStr]);
+    return events.filter(e => e.date === selectedDateStr);
+  }, [selectedDateStr, events]);
 
   const todayStr = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
 

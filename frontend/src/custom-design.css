@@ -1,0 +1,224 @@
+/* custom-design.css */
+
+/* Categories Grid Enhancements */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.category-card {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border-radius: 20px !important;
+    padding: 2rem 1.5rem !important;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 10px 15px rgba(0, 0, 0, 0.03) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(var(--primary-rgb), 0.2) !important;
+}
+
+.category-card:hover::before {
+    opacity: 1;
+}
+
+.category-card .cat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover .cat-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.category-card h3 {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.category-card p {
+    color: #6B7280 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Clubs Carousel/List Enhancements */
+.club-card {
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 2rem !important;
+    border: 1px solid #f3f4f6 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.club-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1) !important;
+    border-color: #e5e7eb !important;
+}
+
+.club-card button {
+    margin-top: auto;
+    width: 100%;
+    border-radius: 12px !important;
+    background: linear-gradient(to right, #111827, #374151) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.club-card button:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 10px 15px -3px rgba(17, 24, 39, 0.3) !important;
+}
+
+/* Auth Modal Enhancements */
+.modal-overlay {
+    backdrop-filter: blur(8px) !important;
+    background: rgba(17, 24, 39, 0.6) !important;
+}
+
+.modal {
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    padding: 2rem !important;
+    max-width: 480px !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+    animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes modalPop {
+    0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.auth-header h2 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    color: var(--primary) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.auth-header p {
+    font-size: 1.05rem !important;
+    color: #6B7280 !important;
+}
+
+.form-group label {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.form-group input {
+    border-radius: 12px !important;
+    border: 2px solid #e5e7eb !important;
+    padding: 1rem 1.2rem !important;
+    font-size: 1rem !important;
+    transition: all 0.2s ease !important;
+    background: #f9fafb !important;
+}
+
+.form-group input:focus {
+    background: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    outline: none !important;
+}
+
+.btn-auth-submit {
+    background: #2563EB !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-size: 1.05rem !important;
+    padding: 1rem 1.5rem !important;
+    margin-top: 1rem !important;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    cursor: pointer !important;
+}
+
+.btn-auth-submit:hover {
+    background: #1D4ED8 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4) !important;
+}
+
+.form-group select {
+    border-radius: 12px !important;
+    border: 2px solid #e5e7eb !important;
+    padding: 1rem 1.2rem !important;
+    font-size: 1rem !important;
+    transition: all 0.2s ease !important;
+    background: #f9fafb !important;
+    width: 100% !important;
+    font-family: inherit !important;
+    color: #111827 !important;
+}
+
+.form-group select:focus {
+    background: #ffffff !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    outline: none !important;
+}
+
+.role-card {
+    background: #ffffff;
+    border: 2px solid #f3f4f6 !important;
+}
+.role-card:hover {
+    border-color: var(--primary) !important;
+    background: #f8fafc;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05);
+}

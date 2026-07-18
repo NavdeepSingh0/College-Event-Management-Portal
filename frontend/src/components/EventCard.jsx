@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Heart, Star, Bookmark, ClipboardList } from 'lucide-react';
+import { Calendar, MapPin, Heart, Star, Bookmark, ClipboardList, Clock } from 'lucide-react';
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, hideRegister = false, customAction = null }) {
   // Mapping categories to CSS variables for colors
   const categoryColors = {
     'Technical': '#8B5CF6',
@@ -44,13 +44,21 @@ export default function EventCard({ event }) {
   const registered = event.registered_count || event.registered || 0;
   const pct = Math.round((registered / capacity) * 100);
 
+  // Calculate Registration Deadline (2 days before event date for demo purposes)
+  let deadlineDate = new Date(dateObj);
+  deadlineDate.setDate(deadlineDate.getDate() - 2);
+  const deadlineStr = deadlineDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+
   return (
     <div className="event-card fade-in" data-id={event.id}>
-      <div className="event-card-image">
+      <div className="event-card-image" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
         <div 
           className="card-img" 
           style={{ 
-            background: `url('${catImage}') center/cover no-repeat, linear-gradient(135deg, ${catColor}44, ${catColor}22)`
+            background: `url('${catImage}') center/cover no-repeat, linear-gradient(135deg, ${catColor}44, ${catColor}22)`,
+            height: '100%',
+            width: '100%',
+            backgroundSize: 'cover'
           }}
         >
           <div className="card-img-overlay"></div>
@@ -75,18 +83,25 @@ export default function EventCard({ event }) {
           <span><MapPin className="inline w-4 h-4 mr-1 text-gray-400" /> {event.venue || 'TBA'}</span>
         </div>
         
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+          <span style={{ fontSize: '0.75rem', color: '#DC2626', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.2rem' }}><Clock className="w-3 h-3" /> Registration Closes: {deadlineStr}</span>
+        </div>
         <div className="seats-bar">
           <div className={`seats-bar-fill ${pct > 80 ? 'almost-full' : ''}`} style={{ width: `${pct}%` }}></div>
         </div>
         
-        <div className="event-card-footer">
-          <div className="event-card-stats">
-            <span className="attendance">{registered}/{capacity} registered</span>
-            <span className="price">{event.price === 0 ? 'Free' : event.price}</span>
+        <div className="event-card-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="event-card-stats" style={{ display: 'flex', flexDirection: 'column' }}>
+            <span className="price" style={{ fontSize: '1.2rem', fontWeight: 800, color: event.price === 0 ? 'var(--green)' : 'var(--text)' }}>{event.price === 0 ? 'Free' : `₹${event.price}`}</span>
+            <span className="attendance" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{registered}/{capacity} registered</span>
           </div>
-          <div className="event-card-actions">
+          <div className="event-card-actions" style={{ display: 'flex', gap: '0.5rem' }}>
             <Link to={`/events/${event.id}`} className="btn btn-sm btn-secondary">View</Link>
-            <button className="btn btn-sm btn-primary">Register</button>
+            {customAction ? (
+              customAction
+            ) : (
+              !hideRegister && <Link to={`/events/${event.id}`} className="btn btn-sm btn-primary">Register</Link>
+            )}
           </div>
         </div>
       </div>

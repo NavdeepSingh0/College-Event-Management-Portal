@@ -2,18 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Users } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import API from '../utils/api';
 
 export default function OrganiserDashboard() {
   const { user } = useAuth();
   const [myEvents, setMyEvents] = useState([]);
 
+  const [stats, setStats] = useState({ totalEvents: 0, totalRegistrations: 0, totalViews: 0 });
+
   useEffect(() => {
-    // Mock fetch
-    setMyEvents([
-      { id: 1, title: 'Annual Tech Symposium', date: '2026-08-15', registered_count: 230, capacity: 500, views: 1200 },
-      { id: 2, title: 'Hackathon 2026', date: '2026-09-10', registered_count: 150, capacity: 200, views: 800 }
-    ]);
-  }, []);
+    if (user && user.role === 'organiser') {
+      API.get('/organiser/stats')
+        .then(res => {
+          setMyEvents(res.events || []);
+          if (res.stats) {
+            setStats({
+              totalEvents: res.stats.totalEvents || 0,
+              totalRegistrations: res.stats.totalRegistrations || 0,
+              totalViews: res.stats.totalViews || 0
+            });
+          }
+        })
+        .catch(err => console.error(err));
+    }
+  }, [user]);
 
   if (!user || user.role !== 'organiser') {
     return <div className="container" style={{ padding: '6rem 0', textAlign: 'center', color: 'var(--red)' }}>Access Denied. Organiser role required.</div>;
@@ -40,15 +52,15 @@ export default function OrganiserDashboard() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
           <div style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border)' }}>
             <h3 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total Events</h3>
-            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{myEvents.length}</div>
+            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{stats.totalEvents}</div>
           </div>
           <div style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border)' }}>
             <h3 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total Registrations</h3>
-            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{myEvents.reduce((acc, ev) => acc + ev.registered_count, 0)}</div>
+            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{stats.totalRegistrations}</div>
           </div>
           <div style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border)' }}>
             <h3 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total Views</h3>
-            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{myEvents.reduce((acc, ev) => acc + ev.views, 0)}</div>
+            <div style={{ fontSize: '2.5rem', fontWeight: 800 }}>{stats.totalViews}</div>
           </div>
         </div>
 
@@ -68,26 +80,43 @@ export default function OrganiserDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {myEvents.map(event => (
-                  <tr key={event.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
-                    <td style={{ padding: '1rem 1.5rem', fontWeight: 600 }}>{event.title}</td>
-                    <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)' }}>{new Date(event.date).toLocaleDateString()}</td>
-                    <td style={{ padding: '1rem 1.5rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Users className="w-4 h-4 text-primary" /> {event.registered_count} / {event.capacity}
-                      </div>
-                    </td>
-                    <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)' }}>{event.views}</td>
-                    <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
-                      <button className="btn-icon" style={{ display: 'inline-flex', marginRight: '0.5rem' }} title="Edit">
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button className="btn-icon" style={{ display: 'inline-flex', color: 'var(--red)', borderColor: '#FEE2E2' }} title="Delete">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                {myEvents.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                      No events created yet. Click 'Create Event' to get started.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  myEvents.map(event => (
+                    <tr key={event.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
+                      <td style={{ padding: '1rem 1.5rem', fontWeight: 600 }}>{event.title}</td>
+                      <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)' }}>{new Date(event.date).toLocaleDateString()}</td>
+                      <td style={{ padding: '1rem 1.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <Users className="w-4 h-4 text-primary" /> {event.registered_count} / {event.capacity}
+                        </div>
+                      </td>
+                      <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)' }}>{event.views}</td>
+                      <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
+                        <button className="btn-icon" style={{ display: 'inline-flex', marginRight: '0.5rem' }} title="Edit">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button onClick={async () => {
+                            if (confirm('Are you sure you want to delete this event?')) {
+                              try {
+                                await API.del(`/events/${event.id}`);
+                                setMyEvents(prev => prev.filter(e => e.id !== event.id));
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }
+                          }} className="btn-icon" style={{ display: 'inline-flex', color: 'var(--red)', borderColor: '#FEE2E2' }} title="Delete">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

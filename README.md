@@ -1,72 +1,97 @@
-# College Event Portal - 12 Hour Challenge
+# CU Events - College Event Management Portal
+**Comprehensive System Architecture and Technical Documentation**
 
-A modern, full-stack college event management portal built for the 12-Hour Challenge. This platform enables students to discover and register for events, and allows organizers to seamlessly manage them.
+## 1. Abstract
+CU Events is an enterprise-grade, full-stack web application designed to centralize college event discovery, student registration, and organizer administration. Built specifically for the 12-Hour Challenge, it bridges the gap between students looking for campus activities and club organizers managing capacities, approvals, and metrics. It features a modern, responsive UI and a robust RESTful API backed by a relational PostgreSQL database.
 
-## 🚀 Tech Stack
+## 2. Directory Structure & Codebase Organization
+The repository is strictly divided into two distinct environments to enforce the separation of concerns between client-side rendering and server-side orchestration.
 
-- **Frontend:** React (Vite), TailwindCSS, React Router DOM, Lucide React Icons
-- **Backend:** Node.js, Express.js
-- **Database:** PostgreSQL (Supabase)
-- **Authentication:** JWT, bcryptjs
+```text
+cu-events/
+├── frontend/                        # React / Vite Application
+│   ├── src/
+│   │   ├── components/              # Reusable UI widgets (AuthModal, Navbar, EventCard)
+│   │   ├── pages/                   # Top-level view controllers (Home, EventDetails)
+│   │   │   ├── dashboard/           # Student registration management
+│   │   │   └── organiser/           # Administrative event creation & analytics
+│   │   ├── context/                 # React Context API for global state (Auth)
+│   │   ├── utils/                   # API interceptors and configuration (api.js)
+│   │   ├── global.css               # Core styling, variables, and typography
+│   │   ├── custom-design.css        # Specialized UI polish and animations
+│   │   └── App.jsx                  # Core application router and layout wrapper
+│   ├── package.json                 # Frontend dependencies
+│   └── vite.config.js               # Vite bundler configuration
+│
+├── backend/                         # Node.js / Express REST API
+│   ├── server/
+│   │   ├── routes/                  # API endpoint definitions (auth, events, register, notifications)
+│   │   ├── middleware/              # JWT verification and request interception
+│   │   ├── utils/                   # Helper functions (email generation, OTPs)
+│   │   ├── db.js                    # Supabase client instantiation
+│   │   └── index.js                 # Application entry point and middleware configuration
+│   ├── supabase/                    # Database architecture
+│   │   └── schema.sql               # PostgreSQL tables, relations, triggers, and RPCs
+│   ├── .env                         # Server environment variables
+│   └── package.json                 # Backend dependencies
+│
+└── README.md                        # Master architectural documentation
+```
 
-## 🌟 Features Implemented
+## 3. Technology Stack
 
-### Core Requirements
-1. **Authentication:** Secure student login/registration, encrypted passwords, JWT sessions, and protected routes.
-2. **Student Dashboard:** Responsive UI for students to view registered events, cancel registrations, and view organizer announcements.
-3. **Event Listing:** Detailed event cards/pages featuring banners, dates, venues, capacities, and a seamless registration flow.
-4. **Admin Panel:** Organiser dashboard to create, edit, delete events, track views, and manage registrations.
-5. **Database Design:** A fully relational schema in Supabase handling Users, Events, Registrations, and Announcements.
+| Architecture Layer | Core Technology | Primary Function & Justification |
+| :--- | :--- | :--- |
+| **Frontend UI** | React.js (Vite) | High-performance, component-based rendering. |
+| **Styling** | Vanilla CSS / Modules | Custom styling with CSS variables for dynamic themes and animations. |
+| **Icons** | Lucide React | Lightweight, scalable vector graphics library. |
+| **Backend Server** | Node.js / Express.js | Event-driven RESTful API orchestration on port 3001. |
+| **Database** | PostgreSQL (Supabase) | Relational SQL persistence with advanced constraints and RPC triggers. |
+| **Authentication** | JWT & bcryptjs | Cryptographic security and stateless session management. |
 
-### Bonus Features (Highly Preferred)
-- **Email Confirmations:** Integrated SMTP for OTP-based secure actions.
-- **Search & Filters:** A comprehensive sidebar on the events page to filter by category, date, and text search.
-- **Calendar View:** A visual calendar allowing students to browse events chronologically.
-- **Analytics Dashboard:** Event views and registration metrics tracked and displayed to organizers.
-- **Responsive Mobile UI:** Built mobile-first using Tailwind CSS.
-- **Loading Skeletons:** Skeleton loaders to ensure a smooth user experience during data fetching.
+## 4. Testing Credentials
 
-## 🛠️ Setup Instructions
+| Access Level | Authentication Email | Password | Role Permissions & Capabilities |
+| :--- | :--- | :--- | :--- |
+| **Student / Attendee** | `priya@cuchd.in` | `demo123` | Can explore events, register via OTP, and view personal dashboard. |
+| **Event Organiser** | `rahul.organiser@gmail.com` | `demo123` | Can create, edit, and delete events, view analytics, and track attendees. |
 
-### 1. Database Setup (Supabase)
-1. Create a new Supabase project.
-2. Run the SQL commands found in `backend/supabase/schema.sql` in your Supabase SQL editor.
-3. Run the `backend/supabase/migrate.sql` script to seed dummy data.
-4. Note your Supabase URL and Anon Key.
+## 5. Detailed RESTful API Specifications
 
-### 2. Backend Setup
+The following table comprehensively details the primary backend endpoints, identifying the HTTP Method, Route path, expected Request Payload, and Primary Controller Function.
+
+| Method | Endpoint Route | Auth Level | Request Payload (Body) | Expected Output / Action |
+| :--- | :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/register` | Public | `{ email, password, name, role... }` | Creates user, hashes password, returns JWT session. |
+| `POST` | `/api/auth/login` | Public | `{ email, password }` | Authenticates against bcrypt hash. Returns JWT Token. |
+| `GET` | `/api/events` | Public | None | Fetches array of all active, public-facing events. |
+| `GET` | `/api/events/:id` | Public | None | Fetches singular event details including capacity and organizer info. |
+| `POST` | `/api/events` | Organiser | `{ title, date, venue, capacity... }` | Creates a new event linked to the organiser's account. |
+| `POST` | `/api/register/send-otp` | Attendee | `{ eventId, email }` | Generates a 6-digit OTP and sends it via email/console for verification. |
+| `POST` | `/api/register/verify-otp`| Attendee | `{ eventId, otp, email }` | Verifies OTP and officially decrements event capacity, creating a Registration. |
+| `GET` | `/api/notifications` | Bearer | None | Fetches all notifications for the user, calculates `unreadCount`. |
+| `PUT` | `/api/notifications/read-all`| Bearer | None | Marks all fetched notifications as read (`read = 1`). |
+
+## 6. Initialization & Deployment Procedures
+
+To initialize the environment for development or production deployment, execute the following commands in their respective module directories.
+
+### Backend Services Initialization:
 ```bash
 cd backend
 npm install
-```
-Create a `.env` file in the `backend` folder:
-```env
-PORT=3000
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_anon_key
-JWT_SECRET=your_super_secret_jwt_key
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
-```
-Run the backend server:
-```bash
+# Set JWT_SECRET, PORT (3001), and Supabase credentials in a .env file prior to execution
 npm run dev
+# The backend will bind to http://localhost:3001
 ```
 
-### 3. Frontend Setup
+### Frontend Application Initialization:
 ```bash
 cd frontend
 npm install
-```
-Run the React development server:
-```bash
 npm run dev
+# The application will bind to http://localhost:5173 by default
 ```
 
-## 🏗️ Architecture Decisions
-- **Separation of Concerns:** The project is strictly divided into a decoupled `/backend` (REST API) and `/frontend` (React SPA). This allows them to be deployed and scaled independently.
-- **Supabase as DBaaS:** PostgreSQL on Supabase was chosen for its robust relational data integrity and ease of remote connection without complex local setup.
-- **Vite over Create React App:** Vite was chosen for its incredibly fast HMR (Hot Module Replacement) and optimized build times, crucial for a 12-hour hackathon environment.
-- **Tailwind CSS:** Selected to rapidly build responsive, modern, and highly customized UI components without context-switching to external CSS files.
+### Database Configuration:
+The application relies on Supabase for PostgreSQL management. The complete database schema (including table creation, trigger functions, and mock data injection) is located at `backend/supabase/schema.sql`. You must run this SQL script in your Supabase SQL Editor to initialize the tables before launching the application.

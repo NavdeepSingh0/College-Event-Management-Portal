@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Search, Calendar, Folder, IndianRupee, MapPin } from 'lucide-react';
 import EventCard from '../components/EventCard';
-import { cuEvents, cuVenues } from '../data/events';
+import { cuVenues } from '../data/events';
+import API from '../utils/api';
 
 export default function Events() {
   const [searchParams] = useSearchParams();
-  const [events, setEvents] = useState(cuEvents);
+  const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    API.get('/events?limit=100')
+      .then(res => {
+        setAllEvents(res.events || []);
+      })
+      .catch(err => console.error(err));
+  }, []);
   
   // Filters
   const [search, setSearch] = useState(searchParams.get('q') || '');
@@ -31,7 +41,7 @@ export default function Events() {
   useEffect(() => {
     setLoading(true);
     // Apply filters
-    let filtered = [...cuEvents];
+    let filtered = [...allEvents];
 
     if (search) {
       const q = search.toLowerCase();
@@ -87,7 +97,7 @@ export default function Events() {
 
     setEvents(filtered);
     setTimeout(() => setLoading(false), 300); // Small delay for UX
-  }, [search, dateFilter, selectedCats, priceFilter, venueFilter, sortBy]);
+  }, [search, dateFilter, selectedCats, priceFilter, venueFilter, sortBy, allEvents]);
 
   const clearFilters = () => {
     setSearch('');

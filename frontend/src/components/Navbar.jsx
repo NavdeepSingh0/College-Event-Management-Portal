@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Bell, User, LogOut, Menu, X, GraduationCap } from 'lucide-react';
+import API from '../utils/api';
 
 export default function Navbar({ onOpenAuth }) {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [showNotifDropdown, setShowNotifDropdown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +20,30 @@ export default function Navbar({ onOpenAuth }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const fetchNotifs = async () => {
+      if (!user) return;
+      try {
+        const res = await API.get('/notifications');
+        setNotifications(res.notifications || []);
+        setUnreadCount(res.unreadCount || 0);
+      } catch (err) {
+        console.error('Failed to fetch notifications', err);
+      }
+    };
+    fetchNotifs();
+  }, [user]);
+
+  const handleMarkAllRead = async () => {
+    try {
+      await API.put('/notifications/read-all');
+      setUnreadCount(0);
+      setNotifications(notifications.map(n => ({ ...n, read: 1 })));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const isActive = (path) => location.pathname === path ? 'active' : '';
 
@@ -40,10 +68,37 @@ export default function Navbar({ onOpenAuth }) {
             ) : (
               <>
                 <div className="nav-notif" style={{ position: 'relative' }}>
-                  <button className="btn-icon">
+                  <button className="btn-icon" onClick={() => setShowNotifDropdown(!showNotifDropdown)}>
                     <Bell className="w-5 h-5" />
-                    <span className="badge" style={{ display: 'none', position: 'absolute', top: '-5px', right: '-5px', background: 'var(--red)', color: 'white', borderRadius: '50%', width: '18px', height: '18px', fontSize: '10px', alignItems: 'center', justifyContent: 'center' }}>0</span>
+                    {unreadCount > 0 && (
+                      <span className="badge" style={{ position: 'absolute', top: '-5px', right: '-5px', background: 'var(--red)', color: 'white', borderRadius: '50%', width: '18px', height: '18px', fontSize: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {unreadCount}
+                      </span>
+                    )}
                   </button>
+                  
+                  {showNotifDropdown && (
+                    <div style={{ position: 'absolute', top: '120%', right: '0', width: '300px', background: 'white', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)', border: '1px solid var(--border)', zIndex: 1000, overflow: 'hidden' }}>
+                      <div style={{ padding: '1rem', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc' }}>
+                        <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Notifications</h4>
+                        {unreadCount > 0 && (
+                          <button onClick={handleMarkAllRead} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontSize: '0.8rem', cursor: 'pointer', fontWeight: 600 }}>Mark all read</button>
+                        )}
+                      </div>
+                      <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                        {notifications.length === 0 ? (
+                          <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>No notifications yet.</div>
+                        ) : (
+                          notifications.map(n => (
+                            <div key={n.id} style={{ padding: '1rem', borderBottom: '1px solid var(--border-light)', background: n.read === 0 ? '#f0f9ff' : 'white' }}>
+                              <p style={{ margin: '0 0 0.25rem', fontSize: '0.85rem', color: 'var(--text)' }}>{n.message}</p>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)' }}>{new Date(n.created_at).toLocaleDateString()}</span>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <Link to={user.role === 'organiser' ? '/organiser-dashboard' : '/dashboard'} className="btn-icon profile-btn" title="Dashboard">
                   <User className="w-5 h-5" />
