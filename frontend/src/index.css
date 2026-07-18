@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+/* CU EVENTS — Premium Design System */
+/* Tailwind configured via postcss.config.js — custom CSS takes full precedence */
 
 /* CU EVENTS — PREMIUM PROFESSIONAL DESIGN SYSTEM */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
