@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-export default function AuthModal({ isOpen, onClose }) {
+export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
   const { login, register } = useAuth();
-  const [mode, setMode] = useState('login'); // 'login', 'signup-role', 'signup'
+  const [mode, setMode] = useState(initialMode); // 'login', 'signup-role', 'signup'
+  
+  useEffect(() => {
+    if (isOpen) setMode(initialMode === 'signup' ? 'signup-role' : 'login');
+  }, [isOpen, initialMode]);
   const [role, setRole] = useState('attendee'); // 'attendee', 'organiser'
   
   // Form states

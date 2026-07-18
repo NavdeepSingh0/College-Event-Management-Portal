@@ -12,12 +12,18 @@ import CalendarView from './pages/CalendarView';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+
+  const openAuth = (mode) => {
+    setAuthMode(mode);
+    setIsAuthModalOpen(true);
+  };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar onOpenAuth={() => setIsAuthModalOpen(true)} />
+    <div className="app-wrapper" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Navbar onOpenAuth={openAuth} />
       
-      <main className="flex-grow">
+      <main style={{ flex: 1, marginTop: '65px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/events" element={<Events />} />
@@ -29,7 +35,11 @@ function App() {
       </main>
 
       <Footer />
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+        initialMode={authMode}
+      />
     </div>
   );
 }
