@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import EventDetails from './pages/EventDetails';
 import StudentDashboard from './pages/StudentDashboard';
 import OrganiserDashboard from './pages/OrganiserDashboard';
+import CalendarView from './pages/CalendarView';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<StudentDashboard />} />
           <Route path="/organiser-dashboard" element={<OrganiserDashboard />} />
+          <Route path="/calendar" element={<CalendarView />} />
         </Routes>
       </main>
 
