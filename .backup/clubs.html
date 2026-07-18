@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clubs & Societies - CU Events</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-slot"></div>
+    <div id="auth-modal-slot"></div>
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Clubs</span></div>
+            <h1><i data-lucide="users"></i> Student Clubs & Societies</h1>
+            <p>Join 150+ active clubs at Chandigarh University</p>
+        </div>
+    </div>
+    <div class="container" style="padding:2rem 1.5rem 4rem;">
+        <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="clubSearch" placeholder="Search clubs..." oninput="filterClubs()"
+                style="flex:1;min-width:200px;padding:0.7rem 1rem;border-radius:8px;border:1.5px solid var(--border);font-family:'Inter',sans-serif;">
+            <select id="clubCatFilter" onchange="filterClubs()"
+                style="padding:0.7rem 1rem;border-radius:8px;border:1.5px solid var(--border);font-family:'Inter',sans-serif;">
+                <option value="">All Categories</option>
+                <option>Technical & IT</option>
+                <option>Cultural & Arts</option>
+                <option>Sports & Fitness</option>
+                <option>Social & Community</option>
+                <option>Entrepreneurship & Business</option>
+                <option>Photography & Media</option>
+                <option>Music & Dance</option>
+                <option>Literature & Debate</option>
+            </select>
+        </div>
+        <div class="clubs-grid" id="clubsGrid"></div>
+    </div>
+    <div id="footer-slot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/clubs.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+
+</html>

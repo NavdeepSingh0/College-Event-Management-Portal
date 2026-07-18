@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - CU Events</title>
+    <meta name="description" content="Manage your CU Events profile, registrations, created events, favorites, and notifications from your personal dashboard.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-slot"></div>
+    <div id="auth-modal-slot"></div>
+
+    <!-- Dashboard Hero Header -->
+    <div class="dash-hero" id="dashHero">
+        <div class="container">
+            <div class="dash-hero__inner">
+                <div class="dash-hero__profile">
+                    <div class="dash-hero__avatar" id="dashAvatar">?</div>
+                    <div class="dash-hero__info">
+                        <h1 id="dashName">Guest</h1>
+                        <p id="dashId">Please login to access your dashboard</p>
+                        <div class="dash-hero__tags" id="dashTags"></div>
+                    </div>
+                </div>
+                <div class="dash-hero__actions">
+                    <a href="events.html" class="btn btn-primary">Browse Events</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Navigation Tabs -->
+    <div class="dash-tabs-wrapper">
+        <div class="container">
+            <nav class="dash-tabs" id="dashTabs">
+                <button class="dash-tab active" onclick="switchTab('overview',this)" data-tab="overview">
+                    <span class="dash-tab__label">Overview</span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('registered',this)" data-tab="registered">
+                    <span class="dash-tab__label">Registrations</span>
+                    <span class="dash-tab__badge" id="regBadge" style="display:none"></span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('created',this)" data-tab="created">
+                    <span class="dash-tab__label">My Events</span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('favorites',this)" data-tab="favorites">
+                    <span class="dash-tab__label">Favorites</span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('clubs',this)" data-tab="clubs">
+                    <span class="dash-tab__label">My Clubs</span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('notifications',this)" data-tab="notifications">
+                    <span class="dash-tab__label">Notifications</span>
+                    <span class="dash-tab__badge" id="notifBadgeTab" style="display:none"></span>
+                </button>
+                <button class="dash-tab" onclick="switchTab('settings',this)" data-tab="settings">
+                    <span class="dash-tab__label">Settings</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <main class="dash-content" id="dashContent">
+            <div class="dash-loading">
+                <div class="dash-loading__spinner"></div>
+                <p>Loading your dashboard...</p>
+            </div>
+        </main>
+    </div>
+    <div id="footer-slot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+
+</html>

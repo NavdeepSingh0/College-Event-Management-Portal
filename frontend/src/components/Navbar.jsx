@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Bell, User, LogOut, Menu, X } from 'lucide-react';
+import { Bell, User, LogOut, Menu, X, GraduationCap } from 'lucide-react';
 
 export default function Navbar({ onOpenAuth }) {
   const { user, logout } = useAuth();
@@ -24,7 +24,7 @@ export default function Navbar({ onOpenAuth }) {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
           <Link to="/" className="nav-logo">
-            <span style={{ fontSize: '1.4rem' }}>🎓</span> CU <span>Events</span>
+            <span className="text-primary inline-flex items-center"><GraduationCap className="w-6 h-6 inline mr-1" /></span> CU <span>Events</span>
           </Link>
           <ul className="nav-links">
             <li><Link to="/" className={isActive('/')}>Home</Link></li>

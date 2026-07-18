@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar - CU Events</title>
+    <meta name="description" content="Browse the CU Events calendar to find campus events by date. See what's happening today, this week, and beyond at Chandigarh University.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-slot"></div>
+    <div id="auth-modal-slot"></div>
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Calendar</span></div>
+            <h1><i data-lucide="calendar"></i> Event Calendar</h1>
+            <p>View all campus events — click any date to see details</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="calendar-layout">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div class="calendar-header__left">
+                        <button class="btn-icon cal-nav-btn" onclick="changeMonth(-1)" title="Previous month">‹</button>
+                        <h2 id="calMonthTitle">April 2026</h2>
+                        <button class="btn-icon cal-nav-btn" onclick="changeMonth(1)" title="Next month">›</button>
+                    </div>
+                    <div class="calendar-header__right">
+                        <span class="calendar-month-summary" id="monthSummary"></span>
+                        <button class="btn btn-sm btn-secondary" onclick="goToToday()">Today</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+                <div class="calendar-legend">
+                    <span class="calendar-legend__label">Categories:</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#8B5CF6"></span>Technical</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#EC4899"></span>Cultural</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#10B981"></span>Sports</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#F59E0B"></span>Entertainment</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#3B82F6"></span>Academic</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#6366F1"></span>Career</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#14B8A6"></span>Social</span>
+                    <span class="calendar-legend__item"><span class="calendar-legend__dot" style="background:#EF4444"></span>Competition</span>
+                </div>
+            </div>
+            <aside class="calendar-sidebar-events">
+                <h3 id="selectedDateTitle">Select a date</h3>
+                <div id="dateEvents">
+                    <div class="cal-sidebar-empty">
+                        <div class="cal-sidebar-empty__icon"><i data-lucide="calendar"></i></div>
+                        <p>Click on a date to see events</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div id="footer-slot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/calendar.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+
+</html>

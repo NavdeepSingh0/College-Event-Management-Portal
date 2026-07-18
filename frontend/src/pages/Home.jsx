@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Search, Star, Calendar, Target, Users, Rocket, MessageSquare, Mail } from 'lucide-react';
+import { Search, Star, Calendar, Target, Users, Rocket, MessageSquare, Mail, GraduationCap, Laptop, Palette, Trophy, Briefcase, Handshake, Mic, Theater, Bot, Clapperboard, Camera, Music, Edit, Medal, Dumbbell } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import { cuEvents, cuClubs, testimonials } from '../data/events';
+
+const iconMap = {
+  'laptop': <Laptop className="w-8 h-8" />,
+  'masks': <Theater className="w-8 h-8" />,
+  'bot': <Bot className="w-8 h-8" />,
+  'clapperboard': <Clapperboard className="w-8 h-8" />,
+  'rocket': <Rocket className="w-8 h-8" />,
+  'camera': <Camera className="w-8 h-8" />,
+  'music': <Music className="w-8 h-8" />,
+  'handshake': <Handshake className="w-8 h-8" />,
+  'edit': <Edit className="w-8 h-8" />,
+  'medal': <Medal className="w-8 h-8" />
+};
 
 export default function Home() {
   const navigate = useNavigate();
@@ -22,14 +35,14 @@ export default function Home() {
   const upcomingEvents = sortedByDate.slice(0, 6);
 
   const categories = [
-    { name: 'Academic & Seminars', icon: 'graduation-cap', desc: 'Guest lectures, workshops, research', cat: 'Academic' },
-    { name: 'Technical & IT', icon: 'laptop', desc: 'Hackathons, coding, tech talks', cat: 'Technical' },
-    { name: 'Cultural & Arts', icon: '🎨', desc: 'Music, dance, drama, exhibitions', cat: 'Cultural' },
-    { name: 'Sports & Fitness', icon: '⚽', desc: 'Tournaments, yoga, sports meets', cat: 'Sports' },
-    { name: 'Entertainment', icon: 'mic', desc: 'Concerts, comedy, DJ nights', cat: 'Entertainment' },
-    { name: 'Career & Placements', icon: 'briefcase', desc: 'Job fairs, mock interviews', cat: 'Career' },
-    { name: 'Social & Community', icon: 'handshake', desc: 'Blood donation, NGO drives', cat: 'Social' },
-    { name: 'Competitions', icon: '🏆', desc: 'Debates, quizzes, case studies', cat: 'Competition' }
+    { name: 'Academic & Seminars', icon: <GraduationCap className="w-8 h-8" />, desc: 'Guest lectures, workshops, research', cat: 'Academic' },
+    { name: 'Technical & IT', icon: <Laptop className="w-8 h-8" />, desc: 'Hackathons, coding, tech talks', cat: 'Technical' },
+    { name: 'Cultural & Arts', icon: <Palette className="w-8 h-8" />, desc: 'Music, dance, drama, exhibitions', cat: 'Cultural' },
+    { name: 'Sports & Fitness', icon: <Dumbbell className="w-8 h-8" />, desc: 'Tournaments, yoga, sports meets', cat: 'Sports' },
+    { name: 'Entertainment', icon: <Mic className="w-8 h-8" />, desc: 'Concerts, comedy, DJ nights', cat: 'Entertainment' },
+    { name: 'Career & Placements', icon: <Briefcase className="w-8 h-8" />, desc: 'Job fairs, mock interviews', cat: 'Career' },
+    { name: 'Social & Community', icon: <Handshake className="w-8 h-8" />, desc: 'Blood donation, NGO drives', cat: 'Social' },
+    { name: 'Competitions', icon: <Trophy className="w-8 h-8" />, desc: 'Debates, quizzes, case studies', cat: 'Competition' }
   ];
 
   // Hero carousel effect
@@ -165,7 +178,7 @@ export default function Home() {
               const count = cuEvents.filter(e => e.category === cat.cat).length;
               return (
                 <Link to={`/events?cat=${cat.cat}`} key={cat.cat} className="category-card fade-in">
-                  <span className="cat-icon">{cat.icon.length > 2 ? <i data-lucide={cat.icon}></i> : cat.icon}</span>
+                  <span className="cat-icon text-accent">{cat.icon}</span>
                   <h3>{cat.name}</h3>
                   <p>{cat.desc}</p>
                   <p style={{ marginTop: '0.4rem', fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 600 }}>{count} events</p>
@@ -186,7 +199,7 @@ export default function Home() {
           <div className="clubs-scroll">
             {cuClubs.map(club => (
               <div key={club.id} className="club-card">
-                <div className="club-icon"><i data-lucide={club.logo}></i></div>
+                <div className="club-icon text-accent">{iconMap[club.logo] || <Users className="w-8 h-8" />}</div>
                 <h3>{club.name}</h3>
                 <div className="club-meta">{club.members} members • {club.upcomingEvents} events</div>
                 <button className="btn btn-sm btn-primary" onClick={() => alert(`Following ${club.name}!`)}>Follow</button>
@@ -238,7 +251,11 @@ export default function Home() {
           <div className="testimonials-slider">
             {testimonials.map(t => (
               <div key={t.id} className="testimonial-card">
-                <div className="stars">{'⭐'.repeat(t.rating)}</div>
+                <div className="stars flex gap-1 mb-3 text-yellow-500">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4" fill="currentColor" />
+                  ))}
+                </div>
                 <p className="quote">"{t.quote}"</p>
                 <div className="author">
                   <div className="author-avatar">{t.name.charAt(0)}</div>

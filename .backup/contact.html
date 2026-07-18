@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - CU Events | Chandigarh University</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-slot"></div>
+    <div id="auth-modal-slot"></div>
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Contact</span></div>
+            <h1><i data-lucide="phone"></i> Contact Us</h1>
+            <p>We're here to help! Reach out to us for any queries.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2 style="margin-bottom:1.5rem;">Send us a Message</h2>
+                <form onsubmit="event.preventDefault();showToast('Message sent successfully!','success');this.reset();"
+                    id="contactForm">
+                    <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your name"
+                            required></div>
+                    <div class="form-group"><label>Email *</label><input type="email" placeholder="your@email.com"
+                            required></div>
+                    <div class="form-group"><label>CU ID (optional)</label><input type="text"
+                            placeholder="CU2024XXX000"></div>
+                    <div class="form-group"><label>Subject *</label>
+                        <select required>
+                            <option value="">Select a topic</option>
+                            <option>Event Registration Issue</option>
+                            <option>Event Creation Help</option>
+                            <option>Account Problem</option>
+                            <option>Feedback & Suggestion</option>
+                            <option>Report an Issue</option>
+                            <option>Partnership Inquiry</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Message *</label><textarea rows="5"
+                            placeholder="Tell us what you need help with..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Send
+                        Message</button>
+                </form>
+            </div>
+            <div>
+                <div class="contact-cards">
+                    <div class="contact-card">
+                        <div class="contact-icon"><i data-lucide="mail"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>events@cumail.in</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i data-lucide="phone"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91-1234567890</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i data-lucide="building"></i></div>
+                        <div>
+                            <h4>Office</h4>
+                            <p>Student Activities Office, Block-A, CU</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <h4>Office Hours</h4>
+                            <p>Mon-Fri, 9 AM - 5 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-accordion" style="margin-top:2rem;">
+                    <h3 style="margin-bottom:1rem;">❓ Frequently Asked Questions</h3>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">How do I register for events? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Simply browse events, click "Register Now" on any event page. You'll need to login with
+                                your CU ID first.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">Can I create events as a student? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Yes! Any registered student can create events through the "Create Event" page. Fill out
+                                the multi-step form and publish.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">How do I get event certificates? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Certificates are automatically generated for events that offer them. You can download
+                                them from your dashboard after attending.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">What if an event is cancelled? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>You'll receive a notification and email if an event you registered for is cancelled. Any
+                                paid fees will be refunded.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">How do I report an issue? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Use the contact form above or email us at events@cumail.in. We typically respond within
+                                24 hours.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">Can I get a refund for paid events? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Refunds are available up to 24 hours before the event start time. Contact the event
+                                organizer or our support team.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-slot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+
+</html>

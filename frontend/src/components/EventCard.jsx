@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin } from 'lucide-react';
+import { Calendar, MapPin, Heart, Star, Bookmark, ClipboardList } from 'lucide-react';
 
 export default function EventCard({ event }) {
   // Mapping categories to CSS variables for colors
@@ -58,21 +58,21 @@ export default function EventCard({ event }) {
         <span className="category-badge" style={{ backgroundColor: catColor }}>
           {event.category}
         </span>
-        {event.featured && <span className="featured-badge">⭐ Featured</span>}
+        {event.featured && <span className="featured-badge"><Star className="inline w-3 h-3 mr-1" fill="currentColor" /> Featured</span>}
         <button className="bookmark-btn" title="Save to favorites">
-          🤍
+          <Heart className="w-5 h-5 text-gray-500 hover:text-red-500" />
         </button>
       </div>
       <div className="event-card-content">
         <div className="event-card-organizer">
-          <span className="org-icon">{event.organizerLogo || event.organizer_logo || '📋'}</span> {event.organizer}
+          <span className="org-icon"><ClipboardList className="w-4 h-4 text-gray-500" /></span> {event.organizer}
         </div>
         <h3>
           <Link to={`/events/${event.id}`}>{event.title}</Link>
         </h3>
         <div className="event-card-meta">
-          <span>📅 {dateStr} • {timeStr}</span>
-          <span>📍 {event.venue || 'TBA'}</span>
+          <span><Calendar className="inline w-4 h-4 mr-1 text-gray-400" /> {dateStr} • {timeStr}</span>
+          <span><MapPin className="inline w-4 h-4 mr-1 text-gray-400" /> {event.venue || 'TBA'}</span>
         </div>
         
         <div className="seats-bar">

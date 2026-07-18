@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Trash2, Users } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function OrganiserDashboard() {
   const { user } = useAuth();
@@ -22,7 +23,7 @@ export default function OrganiserDashboard() {
     <>
       <div className="page-header" style={{ padding: '4rem 0 2rem' }}>
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Organiser Dashboard</span></div>
+          <div className="breadcrumb"><Link to="/">Home</Link> <span>›</span> <span>Organiser Dashboard</span></div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
               <h1>Organiser Portal</h1>

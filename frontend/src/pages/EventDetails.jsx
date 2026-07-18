@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Calendar, MapPin, Users, Ticket, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -38,7 +38,7 @@ export default function EventDetails() {
       <div className="page-header" style={{ padding: '4rem 0 2rem' }}>
         <div className="container">
           <div className="breadcrumb">
-            <a href="/">Home</a> <span>›</span> <a href="/events">Events</a> <span>›</span> <span>{event.title}</span>
+            <Link to="/">Home</Link> <span>›</span> <Link to="/events">Events</Link> <span>›</span> <span>{event.title}</span>
           </div>
         </div>
       </div>

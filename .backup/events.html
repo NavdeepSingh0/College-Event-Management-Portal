@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Campus Events - CU Events | Chandigarh University</title>
+    <meta name="description"
+        content="Browse all upcoming events at Chandigarh University. Filter by category, date, and venue.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="navbar-slot"></div>
+    <div id="auth-modal-slot"></div>
+
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> <span>Events</span></div>
+            <h1>All Campus Events</h1>
+            <p>Discover and register for events happening at Chandigarh University</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="events-layout">
+            <!-- SIDEBAR -->
+            <aside class="filter-sidebar" id="filterSidebar">
+                <div class="filter-card">
+                    <h3><i data-lucide="search"></i> Search</h3>
+                    <div class="form-group" style="margin:0"><input type="text" id="eventSearch"
+                            placeholder="Search events..." oninput="applyFilters()"></div>
+                </div>
+                <div class="filter-card">
+                    <h3><i data-lucide="calendar"></i> Date</h3>
+                    <label class="filter-option"><input type="radio" name="dateFilter" value="all" checked
+                            onchange="applyFilters()"> All Dates</label>
+                    <label class="filter-option"><input type="radio" name="dateFilter" value="today"
+                            onchange="applyFilters()"> Today</label>
+                    <label class="filter-option"><input type="radio" name="dateFilter" value="week"
+                            onchange="applyFilters()"> This Week</label>
+                    <label class="filter-option"><input type="radio" name="dateFilter" value="month"
+                            onchange="applyFilters()"> This Month</label>
+                </div>
+                <div class="filter-card">
+                    <h3><i data-lucide="folder"></i> Category</h3>
+                    <label class="filter-option"><input type="checkbox" value="Academic" onchange="applyFilters()">
+                        Academic</label>
+                    <label class="filter-option"><input type="checkbox" value="Technical" onchange="applyFilters()">
+                        Technical</label>
+                    <label class="filter-option"><input type="checkbox" value="Cultural" onchange="applyFilters()">
+                        Cultural</label>
+                    <label class="filter-option"><input type="checkbox" value="Sports" onchange="applyFilters()">
+                        Sports</label>
+                    <label class="filter-option"><input type="checkbox" value="Entertainment" onchange="applyFilters()">
+                        Entertainment</label>
+                    <label class="filter-option"><input type="checkbox" value="Career" onchange="applyFilters()">
+                        Career</label>
+                    <label class="filter-option"><input type="checkbox" value="Social" onchange="applyFilters()">
+                        Social</label>
+                    <label class="filter-option"><input type="checkbox" value="Competition" onchange="applyFilters()">
+                        Competition</label>
+                </div>
+                <div class="filter-card">
+                    <h3><i data-lucide="indian-rupee"></i> Price</h3>
+                    <label class="filter-option"><input type="radio" name="priceFilter" value="all" checked
+                            onchange="applyFilters()"> All</label>
+                    <label class="filter-option"><input type="radio" name="priceFilter" value="free"
+                            onchange="applyFilters()"> Free Only</label>
+                    <label class="filter-option"><input type="radio" name="priceFilter" value="paid"
+                            onchange="applyFilters()"> Paid Only</label>
+                </div>
+                <div class="filter-card">
+                    <h3><i data-lucide="map-pin"></i> Venue</h3>
+                    <div class="form-group" style="margin:0">
+                        <select id="venueFilter" onchange="applyFilters()">
+                            <option value="">All Venues</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" style="width:100%" onclick="clearAllFilters()">Clear All
+                    Filters</button>
+            </aside>
+
+            <!-- MAIN -->
+            <main>
+                <div class="events-toolbar">
+                    <span class="events-count" id="eventsCount">Showing 0 events</span>
+                    <div style="display:flex;gap:1rem;align-items:center;">
+                        <select id="sortBy" onchange="applyFilters()"
+                            style="padding:0.4rem 0.8rem;border-radius:8px;border:1px solid var(--border);font-family:'Inter',sans-serif;">
+                            <option value="date">Date (Nearest)</option>
+                            <option value="popular">Popularity</option>
+                            <option value="name">Name (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="active-filters" id="activeFilters"></div>
+                <div class="events-grid" id="eventsGrid"></div>
+                <div id="emptyState" class="empty-state" style="display:none">
+                    <div class="empty-icon"><i data-lucide="search" style="width:48px;height:48px;"></i></div>
+                    <h3>No events found</h3>
+                    <p>Try adjusting your filters or check back later</p>
+                    <button class="btn btn-primary" onclick="clearAllFilters()">Clear Filters</button>
+                </div>
+                <div class="pagination" id="pagination"></div>
+            </main>
+        </div>
+    </div>
+
+    <div id="footer-slot"></div>
+    <script src="js/data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/events.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
@@ -12,7 +12,43 @@ import CalendarView from './pages/CalendarView';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+  const [authMode, setAuthMode] = useState('login');
+  const location = useLocation();
+
+  // Handle scroll reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Optional: stop observing once revealed
+          // observer.unobserve(entry.target); 
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    // A simple way to handle dynamically rendered elements in React
+    // is to just observe all elements on route change or after a short delay
+    const observeElements = () => {
+      document.querySelectorAll('.fade-in:not(.visible), .slide-up:not(.visible)').forEach((el) => {
+        observer.observe(el);
+      });
+    };
+
+    observeElements();
+    
+    // Also set up a MutationObserver to catch elements rendered asynchronously (like events data loading)
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+    
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, [location.pathname]);
 
   const openAuth = (mode) => {
     setAuthMode(mode);

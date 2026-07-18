@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Bell, XCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 
 export default function StudentDashboard() {
@@ -24,7 +25,7 @@ export default function StudentDashboard() {
     <>
       <div className="page-header" style={{ padding: '4rem 0 2rem' }}>
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Student Dashboard</span></div>
+          <div className="breadcrumb"><Link to="/">Home</Link> <span>›</span> <span>Student Dashboard</span></div>
           <h1>Welcome, {user.name}</h1>
           <p>Manage your event registrations and notifications</p>
         </div>
@@ -41,7 +42,7 @@ export default function StudentDashboard() {
               {registeredEvents.length === 0 ? (
                 <div className="empty-state" style={{ textAlign: 'center', padding: '3rem', background: 'var(--bg)', borderRadius: '12px' }}>
                   <p>You haven't registered for any events yet.</p>
-                  <a href="/events" className="btn btn-primary" style={{ marginTop: '1rem' }}>Browse Events</a>
+                  <Link to="/events" className="btn btn-primary" style={{ marginTop: '1rem' }}>Browse Events</Link>
                 </div>
               ) : (
                 <div className="events-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>

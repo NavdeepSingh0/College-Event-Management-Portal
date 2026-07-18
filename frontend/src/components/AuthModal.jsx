@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { GraduationCap, ClipboardList } from 'lucide-react';
 
 export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
   const { login, register } = useAuth();
@@ -76,12 +77,12 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
             </div>
             <div className="role-options" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
               <div className="role-card" style={{ border: '2px solid var(--border)', borderRadius: '12px', padding: '1.5rem', cursor: 'pointer', transition: '0.2s' }} onClick={() => { setRole('attendee'); setMode('signup'); }}>
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🎓</div>
+                <div style={{ marginBottom: '0.5rem' }}><GraduationCap className="w-8 h-8 text-primary" /></div>
                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem' }}>Student / Attendee</h3>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>I want to explore and register for campus events.</p>
               </div>
               <div className="role-card" style={{ border: '2px solid var(--border)', borderRadius: '12px', padding: '1.5rem', cursor: 'pointer', transition: '0.2s' }} onClick={() => { setRole('organiser'); setMode('signup'); }}>
-                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📋</div>
+                <div style={{ marginBottom: '0.5rem' }}><ClipboardList className="w-8 h-8 text-primary" /></div>
                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem' }}>Event Organiser</h3>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>I represent a club or department and want to host events.</p>
               </div>

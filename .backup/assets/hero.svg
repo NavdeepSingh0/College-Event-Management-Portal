@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" fill="none">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#003DA5" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FF6B35" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="buildingGrad1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#003DA5"/>
+      <stop offset="100%" stop-color="#002870"/>
+    </linearGradient>
+    <linearGradient id="buildingGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E5EAA"/>
+      <stop offset="100%" stop-color="#003DA5"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#06D6A0" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#F4A261"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#003DA5" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" fill="url(#skyGrad)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="750" cy="80" r="60" fill="url(#sunGrad)" filter="url(#glow)" opacity="0.9">
+    <animate attributeName="r" values="58;62;58" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="750" cy="80" r="75" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0.3">
+    <animate attributeName="r" values="72;80;72" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Floating particles -->
+  <circle cx="120" cy="100" r="4" fill="#003DA5" opacity="0.2">
+    <animate attributeName="cy" values="100;85;100" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="300" cy="60" r="3" fill="#FF6B35" opacity="0.25">
+    <animate attributeName="cy" values="60;45;60" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="600" cy="45" r="5" fill="#E63946" opacity="0.15">
+    <animate attributeName="cy" values="45;30;45" dur="7s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="500" cy="120" r="3" fill="#003DA5" opacity="0.2">
+    <animate attributeName="cy" values="120;105;120" dur="4.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="820" cy="180" r="4" fill="#F4A261" opacity="0.2">
+    <animate attributeName="cy" values="180;165;180" dur="5.5s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Ground -->
+  <ellipse cx="450" cy="430" rx="500" ry="80" fill="url(#groundGrad)"/>
+
+  <!-- Main University Building -->
+  <g filter="url(#softShadow)">
+    <!-- Central tower -->
+    <rect x="380" y="180" width="140" height="220" rx="4" fill="url(#buildingGrad1)"/>
+    <rect x="395" y="160" width="110" height="30" rx="3" fill="#003DA5"/>
+    <!-- Tower top -->
+    <polygon points="450,130 395,160 505,160" fill="#002870"/>
+    <rect x="440" y="115" width="20" height="20" rx="2" fill="#FF6B35"/>
+    <!-- CU Flag -->
+    <rect x="448" y="95" width="2" height="25" fill="#FF6B35"/>
+    <rect x="450" y="95" width="18" height="12" rx="1" fill="#FF6B35">
+      <animate attributeName="width" values="18;16;18" dur="2s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- Windows - Central -->
+    <rect x="400" y="200" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="428" y="200" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="456" y="200" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="484" y="200" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="400" y="240" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="428" y="240" width="18" height="22" rx="2" fill="#FFF3E0" opacity="0.9"/>
+    <rect x="456" y="240" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="484" y="240" width="18" height="22" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="400" y="280" width="18" height="22" rx="2" fill="#FFF3E0" opacity="0.8"/>
+    <rect x="428" y="280" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="456" y="280" width="18" height="22" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="484" y="280" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="400" y="320" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="428" y="320" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="456" y="320" width="18" height="22" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="484" y="320" width="18" height="22" rx="2" fill="#FFF3E0" opacity="0.8"/>
+
+    <!-- Main entrance -->
+    <rect x="430" y="355" width="40" height="45" rx="20" fill="#002870"/>
+    <rect x="435" y="360" width="30" height="40" rx="15" fill="#1E293B"/>
+
+    <!-- Left wing -->
+    <rect x="240" y="240" width="140" height="160" rx="4" fill="url(#buildingGrad2)"/>
+    <rect x="255" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="280" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="305" y="260" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.9"/>
+    <rect x="330" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="355" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="255" y="300" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.8"/>
+    <rect x="280" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="305" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="330" y="300" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.8"/>
+    <rect x="355" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="255" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="280" y="340" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="305" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="330" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="355" y="340" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.8"/>
+
+    <!-- Right wing -->
+    <rect x="520" y="240" width="140" height="160" rx="4" fill="url(#buildingGrad2)"/>
+    <rect x="535" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="560" y="260" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="585" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="610" y="260" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="635" y="260" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="535" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="560" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="585" y="300" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.85"/>
+    <rect x="610" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="635" y="300" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.8"/>
+    <rect x="535" y="340" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.8"/>
+    <rect x="560" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+    <rect x="585" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.85"/>
+    <rect x="610" y="340" width="16" height="20" rx="2" fill="#FFF3E0" opacity="0.8"/>
+    <rect x="635" y="340" width="16" height="20" rx="2" fill="#E8F4FD" opacity="0.9"/>
+  </g>
+
+  <!-- Trees -->
+  <g opacity="0.8">
+    <rect x="168" y="360" width="8" height="40" rx="2" fill="#7C5B3A"/>
+    <circle cx="172" cy="345" r="22" fill="#10B981" opacity="0.7"/>
+    <circle cx="165" cy="350" r="18" fill="#06D6A0" opacity="0.6"/>
+    <circle cx="180" cy="352" r="16" fill="#10B981" opacity="0.65"/>
+  </g>
+  <g opacity="0.8">
+    <rect x="698" y="355" width="8" height="45" rx="2" fill="#7C5B3A"/>
+    <circle cx="702" cy="338" r="24" fill="#10B981" opacity="0.7"/>
+    <circle cx="694" cy="345" r="19" fill="#06D6A0" opacity="0.6"/>
+    <circle cx="712" cy="347" r="17" fill="#10B981" opacity="0.65"/>
+  </g>
+  <g opacity="0.7">
+    <rect x="778" y="370" width="6" height="30" rx="2" fill="#7C5B3A"/>
+    <circle cx="781" cy="358" r="16" fill="#06D6A0" opacity="0.6"/>
+    <circle cx="775" cy="362" r="13" fill="#10B981" opacity="0.5"/>
+  </g>
+  <g opacity="0.7">
+    <rect x="108" y="375" width="6" height="25" rx="2" fill="#7C5B3A"/>
+    <circle cx="111" cy="365" r="14" fill="#06D6A0" opacity="0.6"/>
+    <circle cx="106" cy="368" r="11" fill="#10B981" opacity="0.55"/>
+  </g>
+
+  <!-- Students walking -->
+  <!-- Student 1 -->
+  <g>
+    <circle cx="200" cy="400" r="8" fill="#FF6B35"/>
+    <rect x="195" y="408" width="10" height="16" rx="4" fill="#FF6B35"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;5,0;0,0" dur="3s" repeatCount="indefinite"/>
+  </g>
+  <!-- Student 2 -->
+  <g>
+    <circle cx="220" cy="402" r="7" fill="#003DA5"/>
+    <rect x="216" y="409" width="9" height="14" rx="3" fill="#003DA5"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;4,-1;0,0" dur="3.5s" repeatCount="indefinite"/>
+  </g>
+  <!-- Student 3 -->
+  <g>
+    <circle cx="680" cy="398" r="8" fill="#E63946"/>
+    <rect x="675" y="406" width="10" height="16" rx="4" fill="#E63946"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;-4,0;0,0" dur="4s" repeatCount="indefinite"/>
+  </g>
+  <!-- Student 4 -->
+  <g>
+    <circle cx="660" cy="405" r="7" fill="#F4A261"/>
+    <rect x="656" y="412" width="9" height="13" rx="3" fill="#F4A261"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;-3,0;0,0" dur="3.2s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Floating event cards -->
+  <g filter="url(#softShadow)" opacity="0.9">
+    <rect x="60" y="160" width="130" height="80" rx="10" fill="white"/>
+    <rect x="60" y="160" width="130" height="25" rx="10" fill="#8B5CF6" opacity="0.15"/>
+    <rect x="72" y="167" width="40" height="10" rx="3" fill="#8B5CF6" opacity="0.7"/>
+    <rect x="72" y="195" width="100" height="8" rx="3" fill="#0F172A" opacity="0.6"/>
+    <rect x="72" y="210" width="70" height="6" rx="3" fill="#94A3B8" opacity="0.5"/>
+    <rect x="72" y="222" width="50" height="6" rx="3" fill="#94A3B8" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="5s" repeatCount="indefinite"/>
+  </g>
+
+  <g filter="url(#softShadow)" opacity="0.85">
+    <rect x="710" y="140" width="130" height="80" rx="10" fill="white"/>
+    <rect x="710" y="140" width="130" height="25" rx="10" fill="#EC4899" opacity="0.15"/>
+    <rect x="722" y="147" width="45" height="10" rx="3" fill="#EC4899" opacity="0.7"/>
+    <rect x="722" y="175" width="100" height="8" rx="3" fill="#0F172A" opacity="0.6"/>
+    <rect x="722" y="190" width="75" height="6" rx="3" fill="#94A3B8" opacity="0.5"/>
+    <rect x="722" y="202" width="55" height="6" rx="3" fill="#94A3B8" opacity="0.4"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-10;0,0" dur="6s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- Path/walkway -->
+  <path d="M300,400 Q450,380 600,400" fill="none" stroke="#CBD5E1" stroke-width="30" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- CU text on building -->
+  <text x="450" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" opacity="0.95">CU</text>
+
+  <!-- Small decorative elements -->
+  <rect x="350" y="410" width="200" height="3" rx="1" fill="#CBD5E1" opacity="0.3"/>
+  <circle cx="400" cy="420" r="2" fill="#FF6B35" opacity="0.3"/>
+  <circle cx="450" cy="418" r="2" fill="#003DA5" opacity="0.3"/>
+  <circle cx="500" cy="420" r="2" fill="#FF6B35" opacity="0.3"/>
+</svg>

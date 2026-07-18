@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GraduationCap } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
           <div>
             <div className="nav-logo" style={{ color: 'white', marginBottom: '1rem' }}>
-              <span style={{ fontSize: '1.4rem' }}>🎓</span> CU <span>Events</span>
+              <span className="inline-flex items-center"><GraduationCap className="w-6 h-6 inline mr-1" /></span> CU <span>Events</span>
             </div>
             <p style={{ color: '#9CA3AF', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '280px' }}>
               The official event management platform for Chandigarh University students and faculty.

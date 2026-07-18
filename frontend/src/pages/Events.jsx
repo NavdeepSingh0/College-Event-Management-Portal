@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Search, Calendar, Folder, IndianRupee, MapPin } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import { cuEvents, cuVenues } from '../data/events';
@@ -107,7 +107,7 @@ export default function Events() {
     <>
       <div className="page-header">
         <div className="container">
-          <div className="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Events</span></div>
+          <div className="breadcrumb"><Link to="/">Home</Link> <span>›</span> <span>Events</span></div>
           <h1>All Campus Events</h1>
           <p>Discover and register for events happening at Chandigarh University</p>
         </div>
