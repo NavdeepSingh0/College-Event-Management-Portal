@@ -11,34 +11,44 @@ export default function StudentDashboard() {
   useEffect(() => {
     // Mock fetch
     setRegisteredEvents([
-      { id: 1, title: 'Annual Tech Symposium', category: 'Technical & IT', price: 0, date: '2026-08-15', time: '10:00', venue: 'Main Auditorium', capacity: 500, registered_count: 230 }
+      { id: 1, title: 'Annual Tech Symposium', category: 'Technical', price: 0, date: '2026-08-15', time: '10:00', venue: 'Main Auditorium', capacity: 500, registered_count: 230, poster_url: '/images/tech-symposium.jpg' }
     ]);
     setAnnouncements([
       { id: 1, title: 'Venue Changed for Tech Symposium', message: 'The event has been moved to the Main Auditorium.', date: '2026-08-10' }
     ]);
   }, []);
 
-  if (!user) return <div className="p-20 text-center">Please login to view your dashboard.</div>;
+  if (!user) return <div className="container" style={{ padding: '6rem 0', textAlign: 'center' }}>Please login to view your dashboard.</div>;
 
   return (
-    <div className="bg-slate-50 min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-8">Student Dashboard</h1>
+    <>
+      <div className="page-header" style={{ padding: '4rem 0 2rem' }}>
+        <div className="container">
+          <div className="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Student Dashboard</span></div>
+          <h1>Welcome, {user.name}</h1>
+          <p>Manage your event registrations and notifications</p>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-primary-500" /> My Registered Events
+      <div className="container" style={{ marginBottom: '4rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div style={{ background: 'white', borderRadius: '16px', border: '1px solid var(--border)', padding: '2rem' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Calendar className="w-6 h-6 text-primary-500" /> My Registered Events
               </h2>
               {registeredEvents.length === 0 ? (
-                <p className="text-slate-500">You haven't registered for any events yet.</p>
+                <div className="empty-state" style={{ textAlign: 'center', padding: '3rem', background: 'var(--bg)', borderRadius: '12px' }}>
+                  <p>You haven't registered for any events yet.</p>
+                  <a href="/events" className="btn btn-primary" style={{ marginTop: '1rem' }}>Browse Events</a>
+                </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="events-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
                   {registeredEvents.map(event => (
-                    <div key={event.id} className="relative">
+                    <div key={event.id} style={{ position: 'relative' }}>
                       <EventCard event={event} />
-                      <button className="absolute top-4 right-4 bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200 transition-colors" title="Cancel Registration">
+                      <button className="btn-icon" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10, background: 'var(--red)', color: 'white', border: 'none' }} title="Cancel Registration">
                         <XCircle className="w-5 h-5" />
                       </button>
                     </div>
@@ -48,25 +58,26 @@ export default function StudentDashboard() {
             </div>
           </div>
 
-          <div className="space-y-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                <Bell className="w-5 h-5 text-amber-500" /> Announcements
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div style={{ background: 'white', borderRadius: '16px', border: '1px solid var(--border)', padding: '2rem' }}>
+              <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Bell className="w-6 h-6 text-yellow-500" /> Announcements
               </h2>
-              <div className="space-y-4">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {announcements.map(ann => (
-                  <div key={ann.id} className="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 className="font-bold text-slate-800 mb-1">{ann.title}</h4>
-                    <p className="text-sm text-slate-600 mb-2">{ann.message}</p>
-                    <span className="text-xs text-slate-400">{ann.date}</span>
+                  <div key={ann.id} style={{ padding: '1rem', background: 'var(--bg)', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
+                    <h4 style={{ fontWeight: 700, marginBottom: '0.3rem' }}>{ann.title}</h4>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>{ann.message}</p>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>{ann.date}</span>
                   </div>
                 ))}
-                {announcements.length === 0 && <p className="text-slate-500">No new announcements.</p>}
+                {announcements.length === 0 && <p style={{ color: 'var(--text-secondary)' }}>No new announcements.</p>}
               </div>
             </div>
           </div>
+
         </div>
       </div>
-    </div>
+    </>
   );
 }

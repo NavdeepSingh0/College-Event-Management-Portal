@@ -1,48 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, Users, Bookmark } from 'lucide-react';
 
 export default function EventCard({ event }) {
+  // Mapping categories to CSS variables
+  const categoryColors = {
+    'Technical': 'var(--cat-technical)',
+    'Cultural': 'var(--cat-cultural)',
+    'Academic': 'var(--cat-academic)',
+    'Sports': 'var(--cat-sports)',
+    'Entertainment': 'var(--cat-entertainment)',
+    'Career': 'var(--cat-career)',
+    'Social': 'var(--cat-social)',
+    'Competition': 'var(--cat-competition)'
+  };
+
+  const bgColor = categoryColors[event.category] || 'var(--accent)';
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow group flex flex-col h-full">
-      <div className="relative h-48 overflow-hidden">
-        <img 
-          src={event.poster_url || '/placeholder.jpg'} 
-          alt={event.title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-slate-800">
+    <div className="event-card">
+      <div className="event-card-image">
+        <div className="card-img" style={{ backgroundImage: `url('${event.poster_url || '/images/placeholder.jpg'}')` }}>
+          <div className="card-img-overlay"></div>
+        </div>
+        <span className="category-badge" style={{ backgroundColor: bgColor }}>
           {event.category}
-        </div>
-        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-primary-600">
-          {event.price > 0 ? `₹${event.price}` : 'Free'}
-        </div>
+        </span>
+        <button className="bookmark-btn" title="Save Event">
+          <Bookmark className="w-4 h-4" />
+        </button>
       </div>
-      
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2">{event.title}</h3>
-        
-        <div className="space-y-2 mb-4 text-sm text-slate-600 flex-grow">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-slate-400" />
-            <span>{new Date(event.date).toLocaleDateString()} at {event.time}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-slate-400" />
-            <span className="line-clamp-1">{event.venue}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-slate-400" />
-            <span>{event.registered_count || 0} / {event.capacity} registered</span>
-          </div>
+      <div className="event-card-content">
+        <div className="event-card-organizer">
+          <span>Organized by <strong>{event.organizer || 'CU Society'}</strong></span>
         </div>
-        
-        <Link 
-          to={`/events/${event.id}`} 
-          className="block w-full text-center bg-slate-50 hover:bg-primary-50 text-primary-600 font-medium py-2 rounded-lg transition-colors border border-primary-100 mt-auto"
-        >
-          View Details
-        </Link>
+        <h3 className="event-title">{event.title}</h3>
+        <div className="event-meta">
+          <span><Calendar className="w-4 h-4 inline" /> {new Date(event.date).toLocaleDateString()}</span>
+          <span><Users className="w-4 h-4 inline" /> {event.capacity} spots</span>
+        </div>
+        <div className="event-card-footer">
+          <span className={`event-price ${event.price === 0 ? 'free' : ''}`}>
+            {event.price === 0 ? 'Free' : `₹${event.price}`}
+          </span>
+          <Link to={`/events/${event.id}`} className="btn btn-sm btn-primary">Register</Link>
+        </div>
       </div>
     </div>
   );

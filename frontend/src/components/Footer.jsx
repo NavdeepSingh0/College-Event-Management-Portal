@@ -1,28 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 py-12 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="footer" style={{ background: 'var(--primary)', color: 'white', padding: '4rem 0 2rem' }}>
+      <div className="container">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">CU Events</h3>
-            <p className="text-sm">The official event management portal for university students and organisers.</p>
+            <div className="nav-logo" style={{ color: 'white', marginBottom: '1rem' }}>
+              <span style={{ fontSize: '1.4rem' }}>🎓</span> CU <span>Events</span>
+            </div>
+            <p style={{ color: '#9CA3AF', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '280px' }}>
+              The official event management platform for Chandigarh University students and faculty.
+            </p>
           </div>
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/events" className="hover:text-white transition-colors">Browse Events</a></li>
-              <li><a href="/clubs" className="hover:text-white transition-colors">Student Clubs</a></li>
+            <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '1.2rem', fontSize: '1.05rem' }}>Platform</h4>
+            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <li><Link to="/events" style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Browse Events</Link></li>
+              <li><Link to="/calendar" style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Event Calendar</Link></li>
             </ul>
           </div>
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">Support</h3>
-            <p className="text-sm">Email: support@cuevents.edu<br/>Phone: +91 12345 67890</p>
+            <h4 style={{ color: 'white', fontWeight: 700, marginBottom: '1.2rem', fontSize: '1.05rem' }}>Support</h4>
+            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <li><a href="#" style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Help Center</a></li>
+              <li><a href="#" style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Contact Us</a></li>
+              <li><a href="#" style={{ color: '#9CA3AF', fontSize: '0.9rem' }}>Privacy Policy</a></li>
+            </ul>
           </div>
         </div>
-        <div className="border-t border-slate-800 mt-8 pt-8 text-sm text-center">
-          &copy; {new Date().getFullYear()} CU Events Portal. All rights reserved.
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <p style={{ color: '#9CA3AF', fontSize: '0.85rem' }}>&copy; 2026 Chandigarh University Events. All rights reserved.</p>
         </div>
       </div>
     </footer>

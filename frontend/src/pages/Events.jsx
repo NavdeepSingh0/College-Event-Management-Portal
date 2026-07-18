@@ -1,86 +1,111 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search, Calendar, Folder, IndianRupee, MapPin } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import { api } from '../api';
 
 export default function Events() {
+  const [searchParams] = useSearchParams();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Filters
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState([]);
+  const [search, setSearch] = useState(searchParams.get('q') || '');
+  const [dateFilter, setDateFilter] = useState(searchParams.get('date') || 'all');
+  const [priceFilter, setPriceFilter] = useState(searchParams.get('price') || 'all');
 
   useEffect(() => {
     // Mock fetch
     setTimeout(() => {
       setEvents([
-        { id: 1, title: 'Annual Tech Symposium', category: 'Technical & IT', price: 0, date: '2026-08-15', time: '10:00', venue: 'Main Auditorium', capacity: 500, registered_count: 230 },
-        { id: 2, title: 'Cultural Fest 2026', category: 'Cultural & Arts', price: 200, date: '2026-09-01', time: '17:00', venue: 'Open Air Theatre', capacity: 1000, registered_count: 450 },
-        { id: 3, title: 'Startup Pitch Deck', category: 'Entrepreneurship', price: 50, date: '2026-08-20', time: '14:00', venue: 'Block C Seminar Hall', capacity: 100, registered_count: 85 }
+        { id: 1, title: 'Annual Tech Symposium', category: 'Technical', price: 0, date: '2026-08-15', time: '10:00', venue: 'Main Auditorium', capacity: 500, registered_count: 230, poster_url: '/images/tech-symposium.jpg', organizer: 'CU Tech Society' },
+        { id: 2, title: 'Cultural Fest 2026', category: 'Cultural', price: 200, date: '2026-09-01', time: '17:00', venue: 'Open Air Theatre', capacity: 1000, registered_count: 450, poster_url: '/images/cultural-fest.jpg', organizer: 'CU Cultural Club' },
+        { id: 3, title: 'Startup Pitch Deck', category: 'Academic', price: 50, date: '2026-08-20', time: '14:00', venue: 'Block C Seminar Hall', capacity: 100, registered_count: 85, poster_url: '/images/startup-pitch.jpg', organizer: 'E-Cell CU' }
       ]);
       setLoading(false);
     }, 500);
   }, []);
 
+  const clearFilters = () => {
+    setSearch('');
+    setDateFilter('all');
+    setPriceFilter('all');
+  };
+
   return (
-    <div className="bg-slate-50 min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Explore Events</h1>
-          <p className="text-slate-600">Discover and register for upcoming university events.</p>
+    <>
+      <div className="page-header">
+        <div className="container">
+          <div className="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Events</span></div>
+          <h1>All Campus Events</h1>
+          <p>Discover and register for events happening at Chandigarh University</p>
         </div>
+      </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Filters */}
-          <aside className="w-full lg:w-64 flex-shrink-0 space-y-6">
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-              <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
-                <Search className="w-5 h-5 text-primary-500" /> Search
-              </h3>
-              <input 
-                type="text" 
-                placeholder="Search events..." 
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
-              <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
-                <Folder className="w-5 h-5 text-primary-500" /> Category
-              </h3>
-              <div className="space-y-2">
-                {['Technical & IT', 'Cultural & Arts', 'Entrepreneurship', 'Sports & Fitness'].map(cat => (
-                  <label key={cat} className="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" className="rounded text-primary-600 focus:ring-primary-500" />
-                    <span className="text-slate-700 text-sm">{cat}</span>
-                  </label>
-                ))}
+      <div className="container">
+        <div className="events-layout">
+          {/* SIDEBAR */}
+          <aside className="filter-sidebar" id="filterSidebar">
+            <div className="filter-card">
+              <h3><Search className="inline w-5 h-5 text-primary-500 mb-1" /> Search</h3>
+              <div className="form-group" style={{ margin: 0 }}>
+                <input 
+                  type="text" 
+                  placeholder="Search events..." 
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </div>
             </div>
+            <div className="filter-card">
+              <h3><Calendar className="inline w-5 h-5 text-primary-500 mb-1" /> Date</h3>
+              <label className="filter-option"><input type="radio" name="dateFilter" value="all" checked={dateFilter === 'all'} onChange={() => setDateFilter('all')} /> All Dates</label>
+              <label className="filter-option"><input type="radio" name="dateFilter" value="today" checked={dateFilter === 'today'} onChange={() => setDateFilter('today')} /> Today</label>
+              <label className="filter-option"><input type="radio" name="dateFilter" value="week" checked={dateFilter === 'week'} onChange={() => setDateFilter('week')} /> This Week</label>
+              <label className="filter-option"><input type="radio" name="dateFilter" value="month" checked={dateFilter === 'month'} onChange={() => setDateFilter('month')} /> This Month</label>
+            </div>
+            <div className="filter-card">
+              <h3><Folder className="inline w-5 h-5 text-primary-500 mb-1" /> Category</h3>
+              {['Academic', 'Technical', 'Cultural', 'Sports', 'Entertainment', 'Career', 'Social'].map(cat => (
+                <label key={cat} className="filter-option">
+                  <input type="checkbox" value={cat} /> {cat}
+                </label>
+              ))}
+            </div>
+            <div className="filter-card">
+              <h3><IndianRupee className="inline w-5 h-5 text-primary-500 mb-1" /> Price</h3>
+              <label className="filter-option"><input type="radio" name="priceFilter" value="all" checked={priceFilter === 'all'} onChange={() => setPriceFilter('all')} /> All</label>
+              <label className="filter-option"><input type="radio" name="priceFilter" value="free" checked={priceFilter === 'free'} onChange={() => setPriceFilter('free')} /> Free Only</label>
+              <label className="filter-option"><input type="radio" name="priceFilter" value="paid" checked={priceFilter === 'paid'} onChange={() => setPriceFilter('paid')} /> Paid Only</label>
+            </div>
+            <button className="btn btn-secondary" style={{ width: '100%' }} onClick={clearFilters}>Clear All Filters</button>
           </aside>
 
-          {/* Event Grid */}
-          <div className="flex-grow">
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
-                {[1,2,3,4,5,6].map(i => <div key={i} className="h-96 bg-slate-200 rounded-xl"></div>)}
+          {/* MAIN */}
+          <main>
+            <div className="events-toolbar">
+              <span className="events-count">Showing {events.length} events</span>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <select style={{ padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border)', fontFamily: "'Inter', sans-serif" }}>
+                  <option value="date">Date (Nearest)</option>
+                  <option value="popular">Popularity</option>
+                  <option value="name">Name (A-Z)</option>
+                </select>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {events.map(event => (
+            </div>
+            
+            <div className="events-grid">
+              {loading ? (
+                [1,2,3].map(i => <div key={i} style={{ height: '300px', background: 'var(--border-light)', borderRadius: '12px' }}></div>)
+              ) : (
+                events.map(event => (
                   <EventCard key={event.id} event={event} />
-                ))}
-              </div>
-            )}
-          </div>
+                ))
+              )}
+            </div>
+          </main>
         </div>
-
       </div>
-    </div>
+    </>
   );
 }
