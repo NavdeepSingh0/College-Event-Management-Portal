@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
 import Home from './pages/Home';
+import Events from './pages/Events';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -15,7 +16,7 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/events" element={<div className="p-8 text-center text-xl">Events Page Coming Soon</div>} />
+          <Route path="/events" element={<Events />} />
           {/* Dashboard and other routes will go here */}
         </Routes>
       </main>
