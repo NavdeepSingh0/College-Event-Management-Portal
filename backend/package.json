@@ -1,0 +1,21 @@
+{
+    "name": "cu-events-backend",
+    "version": "1.0.0",
+    "description": "CU Events Management Platform — Backend",
+    "main": "server/index.js",
+    "scripts": {
+        "start": "node server/index.js",
+        "dev": "node --watch server/index.js"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.100.0",
+        "bcryptjs": "^2.4.3",
+        "better-sqlite3": "^11.7.0",
+        "cors": "^2.8.5",
+        "dotenv": "^17.3.1",
+        "express": "^4.21.0",
+        "jsonwebtoken": "^9.0.2",
+        "nodemailer": "^6.9.0",
+        "pg": "^8.22.0"
+    }
+}
