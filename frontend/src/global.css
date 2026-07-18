@@ -44,6 +44,45 @@
   --cat-competition: #EF4444;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #c3d2ff;
+    --primary-hover: #e8ebf2;
+    --primary-deep: #ffffff;
+    --bg: #121212;
+    --bg-card: #1e1e1e;
+    --bg-elevated: #242424;
+    --text: #e5e7eb;
+    --text-secondary: #9ca3af;
+    --text-tertiary: #6b7280;
+    --border: #333333;
+    --border-light: #2a2a2a;
+    --border-hover: #444444;
+  }
+  
+  /* Overrides for some hardcoded elements in dark mode */
+  .category-badge { color: white !important; }
+  .btn-secondary { background: var(--bg-card); color: var(--text); border-color: var(--border); }
+  .btn-secondary:hover { background: var(--bg-elevated); color: var(--text); }
+  
+  /* Quick overrides for modal and cards to respect dark mode */
+  .modal, .category-card, .club-card, .role-card, .auth-container > div {
+      background: var(--bg-card) !important;
+      border-color: var(--border) !important;
+  }
+  .modal h2, .category-card h3, .club-card h3, .role-card h3 {
+      color: var(--text) !important;
+  }
+  .modal p, .category-card p, .club-card p, .role-card p {
+      color: var(--text-secondary) !important;
+  }
+  .form-group input, .form-group select {
+      background: var(--bg) !important;
+      border-color: var(--border) !important;
+      color: var(--text) !important;
+  }
+}
+
 *,
 *::before,
 *::after {
