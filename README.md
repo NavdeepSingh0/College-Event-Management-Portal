@@ -1,4 +1,6 @@
 # CU Events - College Event Management Portal
+**Live Deployment:** [https://college-event-management-portal.vercel.app/](https://college-event-management-portal.vercel.app/)
+
 **Comprehensive System Architecture and Technical Documentation**
 
 ## 1. Abstract

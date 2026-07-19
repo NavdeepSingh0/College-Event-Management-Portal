@@ -66,14 +66,31 @@
   .btn-secondary:hover { background: var(--bg-elevated); color: var(--text); }
   
   /* Quick overrides for modal and cards to respect dark mode */
-  .modal, .category-card, .club-card, .role-card, .auth-container > div {
+  .modal, .category-card, .club-card, .role-card, .auth-container > div, .filter-card, .page-header {
       background: var(--bg-card) !important;
       border-color: var(--border) !important;
   }
-  .modal h2, .category-card h3, .club-card h3, .role-card h3 {
+  
+  .navbar {
+      background: rgba(30, 30, 30, 0.95) !important;
+      border-bottom-color: var(--border) !important;
+  }
+  
+  .navbar .btn-icon, .navbar .btn-secondary {
+      background: var(--bg-elevated) !important;
+      color: var(--text) !important;
+      border-color: var(--border) !important;
+  }
+  
+  .navbar .btn-primary {
+      background: var(--text) !important;
+      color: var(--bg) !important;
+  }
+
+  .modal h2, .category-card h3, .club-card h3, .role-card h3, .page-header h1 {
       color: var(--text) !important;
   }
-  .modal p, .category-card p, .club-card p, .role-card p {
+  .modal p, .category-card p, .club-card p, .role-card p, .page-header p {
       color: var(--text-secondary) !important;
   }
   .form-group input, .form-group select {
