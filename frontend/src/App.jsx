@@ -13,7 +13,19 @@ import CalendarView from './pages/CalendarView';
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
   const location = useLocation();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   // Handle scroll reveal animations
   useEffect(() => {
@@ -57,7 +69,7 @@ function App() {
 
   return (
     <div className="app-wrapper" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Navbar onOpenAuth={openAuth} />
+      <Navbar onOpenAuth={openAuth} toggleTheme={toggleTheme} theme={theme} />
       
       <main style={{ flex: 1, marginTop: '65px' }}>
         <Routes>

@@ -44,60 +44,87 @@
   --cat-competition: #EF4444;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #c3d2ff;
-    --primary-hover: #e8ebf2;
-    --primary-deep: #ffffff;
-    --bg: #121212;
-    --bg-card: #1e1e1e;
-    --bg-elevated: #242424;
-    --text: #e5e7eb;
-    --text-secondary: #9ca3af;
-    --text-tertiary: #6b7280;
-    --border: #333333;
-    --border-light: #2a2a2a;
-    --border-hover: #444444;
-  }
-  
-  /* Overrides for some hardcoded elements in dark mode */
-  .category-badge { color: white !important; }
-  .btn-secondary { background: var(--bg-card); color: var(--text); border-color: var(--border); }
-  .btn-secondary:hover { background: var(--bg-elevated); color: var(--text); }
-  
-  /* Quick overrides for modal and cards to respect dark mode */
-  .modal, .category-card, .club-card, .role-card, .auth-container > div, .filter-card, .page-header {
-      background: var(--bg-card) !important;
-      border-color: var(--border) !important;
-  }
-  
-  .navbar {
-      background: rgba(30, 30, 30, 0.95) !important;
-      border-bottom-color: var(--border) !important;
-  }
-  
-  .navbar .btn-icon, .navbar .btn-secondary {
-      background: var(--bg-elevated) !important;
-      color: var(--text) !important;
-      border-color: var(--border) !important;
-  }
-  
-  .navbar .btn-primary {
-      background: var(--text) !important;
-      color: var(--bg) !important;
-  }
+html.dark {
+  --primary: #c3d2ff;
+  --primary-hover: #e8ebf2;
+  --primary-deep: #ffffff;
+  --bg: #121212;
+  --bg-card: #1e1e1e;
+  --bg-elevated: #242424;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-tertiary: #6b7280;
+  --border: #333333;
+  --border-light: #2a2a2a;
+  --border-hover: #444444;
+}
 
-  .modal h2, .category-card h3, .club-card h3, .role-card h3, .page-header h1 {
-      color: var(--text) !important;
-  }
-  .modal p, .category-card p, .club-card p, .role-card p, .page-header p {
-      color: var(--text-secondary) !important;
-  }
-  .form-group input, .form-group select {
-      background: var(--bg) !important;
-      border-color: var(--border) !important;
-      color: var(--text) !important;
-  }
+/* Overrides for some hardcoded elements in dark mode */
+html.dark .category-badge { color: white !important; }
+html.dark .btn-secondary { background: var(--bg-card); color: var(--text); border-color: var(--border); }
+html.dark .btn-secondary:hover { background: var(--bg-elevated); color: var(--text); }
+
+/* Quick overrides for modal and cards to respect dark mode */
+html.dark .modal, 
+html.dark .category-card, 
+html.dark .club-card, 
+html.dark .role-card, 
+html.dark .auth-container > div, 
+html.dark .filter-card, 
+html.dark .page-header,
+html.dark .event-card,
+html.dark .testimonial-card,
+html.dark .cta-section {
+    background: var(--bg-card) !important;
+    border-color: var(--border) !important;
+}
+
+html.dark .navbar {
+    background: rgba(30, 30, 30, 0.95) !important;
+    border-bottom-color: var(--border) !important;
+}
+
+html.dark .navbar .btn-icon, 
+html.dark .navbar .btn-secondary {
+    background: var(--bg-elevated) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+
+html.dark .navbar .btn-primary {
+    background: var(--text) !important;
+    color: var(--bg) !important;
+}
+
+html.dark .modal h2, 
+html.dark .category-card h3, 
+html.dark .club-card h3, 
+html.dark .role-card h3, 
+html.dark .page-header h1,
+html.dark .event-card h3,
+html.dark .testimonial-card h4,
+html.dark .cta-section h2 {
+    color: var(--text) !important;
+}
+
+html.dark .modal p, 
+html.dark .category-card p, 
+html.dark .club-card p, 
+html.dark .role-card p, 
+html.dark .page-header p,
+html.dark .event-card p,
+html.dark .testimonial-card p,
+html.dark .cta-section p,
+html.dark .event-card .org-name,
+html.dark .event-card .event-meta {
+    color: var(--text-secondary) !important;
+}
+
+html.dark .form-group input, 
+html.dark .form-group select {
+    background: var(--bg) !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
 }
 
 *,

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Bell, User, LogOut, Menu, X, GraduationCap } from 'lucide-react';
+import { Bell, User, LogOut, Menu, X, GraduationCap, Moon, Sun } from 'lucide-react';
 import API from '../utils/api';
 
-export default function Navbar({ onOpenAuth }) {
+export default function Navbar({ onOpenAuth, toggleTheme, theme }) {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -60,6 +60,9 @@ export default function Navbar({ onOpenAuth }) {
             <li><Link to="/calendar" className={isActive('/calendar')}>Calendar</Link></li>
           </ul>
           <div className="nav-actions">
+            <button className="btn-icon" onClick={toggleTheme} title="Toggle Theme" style={{ marginRight: '8px' }}>
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
             {!user ? (
               <>
                 <button className="btn btn-secondary auth-btn" onClick={() => onOpenAuth('login')}>Login</button>
