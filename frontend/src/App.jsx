@@ -13,7 +13,7 @@ import CalendarView from './pages/CalendarView';
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const location = useLocation();
 
   useEffect(() => {

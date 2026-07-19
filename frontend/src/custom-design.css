@@ -63,22 +63,22 @@
 .category-card h3 {
     font-size: 1.25rem !important;
     font-weight: 700 !important;
-    color: #111827 !important;
+    color: var(--text) !important;
     margin-bottom: 0.5rem !important;
 }
 
 .category-card p {
-    color: #6B7280 !important;
+    color: var(--text-secondary) !important;
     font-size: 0.95rem !important;
     line-height: 1.5 !important;
 }
 
 /* Clubs Carousel/List Enhancements */
 .club-card {
-    background: #ffffff !important;
+    background: var(--bg-card) !important;
     border-radius: 20px !important;
     padding: 2rem !important;
-    border: 1px solid #f3f4f6 !important;
+    border: 1px solid var(--border-light) !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
     transition: all 0.3s ease !important;
     display: flex;
@@ -91,7 +91,7 @@
 .club-card:hover {
     transform: translateY(-5px) !important;
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1) !important;
-    border-color: #e5e7eb !important;
+    border-color: var(--border) !important;
 }
 
 .club-card button {
@@ -118,7 +118,7 @@
 }
 
 .modal {
-    background: #ffffff !important;
+    background: var(--bg-card) !important;
     border-radius: 24px !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
     border: 1px solid rgba(255, 255, 255, 0.5) !important;
@@ -144,26 +144,26 @@
 
 .auth-header p {
     font-size: 1.05rem !important;
-    color: #6B7280 !important;
+    color: var(--text-secondary) !important;
 }
 
 .form-group label {
     font-weight: 600 !important;
-    color: #374151 !important;
+    color: var(--text) !important;
     margin-bottom: 0.5rem !important;
 }
 
 .form-group input {
     border-radius: 12px !important;
-    border: 2px solid #e5e7eb !important;
+    border: 2px solid var(--border) !important;
     padding: 1rem 1.2rem !important;
     font-size: 1rem !important;
     transition: all 0.2s ease !important;
-    background: #f9fafb !important;
+    background: var(--bg) !important;
 }
 
 .form-group input:focus {
-    background: #ffffff !important;
+    background: var(--bg-card) !important;
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
     outline: none !important;
@@ -195,30 +195,30 @@
 
 .form-group select {
     border-radius: 12px !important;
-    border: 2px solid #e5e7eb !important;
+    border: 2px solid var(--border) !important;
     padding: 1rem 1.2rem !important;
     font-size: 1rem !important;
     transition: all 0.2s ease !important;
-    background: #f9fafb !important;
+    background: var(--bg) !important;
     width: 100% !important;
     font-family: inherit !important;
-    color: #111827 !important;
+    color: var(--text) !important;
 }
 
 .form-group select:focus {
-    background: #ffffff !important;
+    background: var(--bg-card) !important;
     border-color: var(--primary) !important;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
     outline: none !important;
 }
 
 .role-card {
-    background: #ffffff;
-    border: 2px solid #f3f4f6 !important;
+    background: var(--bg-card);
+    border: 2px solid var(--border-light) !important;
 }
 .role-card:hover {
     border-color: var(--primary) !important;
-    background: #f8fafc;
+    background: var(--bg);
     transform: translateY(-4px);
     box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05);
 }
